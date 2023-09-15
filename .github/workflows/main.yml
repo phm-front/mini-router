@@ -1,0 +1,32 @@
+name: CI-CD
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+jobs:
+  buildToClos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: build dist
+        run: |
+          npm config registry set https://registry.npmmirror.com/
+          npm i
+          npm run build
+      - name: copy dist to cloud
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        with:
+          host: ${{ secrets.SSH_IP }}
+          user: ${{ secrets.SSH_USER }}
+          pass: ${{ secrets.SSH_PWD }}
+          first_ssh: |
+            rm -rf /usr/share/nginx/html/miniRouter/*
+          scp: |
+            ./dist/**/* => /usr/share/nginx/html/miniRouter/
+
