@@ -27,5 +27,5 @@ jobs:
           first_ssh: |
             rm -rf /usr/share/nginx/html/miniRouter/*
           scp: |
-            ./dist/**/* => /usr/share/nginx/html/miniRouter/
+            ./dist/* => /usr/share/nginx/html/miniRouter/
 
