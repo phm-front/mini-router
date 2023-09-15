@@ -21,7 +21,7 @@ jobs:
       - name: copy dist to cloud
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
-          host: ${{ secrets.SSH_IP }}
+          host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USER }}
           pass: ${{ secrets.SSH_PWD }}
           first_ssh: |
