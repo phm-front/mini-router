@@ -16,7 +16,6 @@ jobs:
           node-version: 18
       - name: build dist
         run: |
-          npm config registry set https://registry.npmmirror.com/
           npm i
           npm run build
       - name: copy dist to cloud
